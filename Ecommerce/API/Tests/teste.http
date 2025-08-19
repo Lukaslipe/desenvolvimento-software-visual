@@ -1,0 +1,8 @@
+### Testar a segunda funcionalidade
+GET http://localhost:5036/
+
+### Testar a segunda funcionalidade
+GET http://localhost:5036/pinho
+
+### Testar a terceira funcionalidade
+GET http://localhost:5036/pinho
