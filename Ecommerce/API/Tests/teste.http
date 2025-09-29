@@ -1,8 +1,19 @@
-### Testar a segunda funcionalidade
-GET http://localhost:5036/
+### Raiz da aplicação
+GET http://localhost:5081/
 
 ### Testar a segunda funcionalidade
-GET http://localhost:5036/pinho
+GET  http://localhost:5081/api/produto/listar
 
-### Testar a terceira funcionalidade
-GET http://localhost:5036/pinho
+### Buscar produto por nome
+GET  http://localhost:5081/api/produto/buscar/TV
+###Cadastrar produto 
+POST http://localhost:5081/api/produto/cadastrar
+Content-Type: application/json
+
+{
+    "nome" : "TV",
+    "quantidade" : 324,
+    "preço" : 678.89
+}
+
+
