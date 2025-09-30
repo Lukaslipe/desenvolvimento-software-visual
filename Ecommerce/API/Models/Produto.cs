@@ -15,7 +15,7 @@ public class Produto
     //Atributos|Propriedades|Caracteristicas C#
     public string Id { get; set; }
     public string Nome { get; set; } 
-    public int Quntidade { get; set; }
+    public int Quantidade { get; set; }
 
     public double Preco { get; set; }
 
