@@ -17,11 +17,11 @@ Content-Type: application/json
 }
 
 ###Remover produto
-DELETE http://localhost:5081/api/produto/remover/a5881a02-ba26-4013-b8fa-0848a45512df
+DELETE http://localhost:5081/api/produto/remover/9ada501f-3792-4c5f-a010-112f908b9a52
 
 ###Alterar produto
 
-PATCH http://localhost:5081/api/produto/editar/12c9e105-e565-42d0-b810-ef32516993e8
+PATCH http://localhost:5081/api/produto/editar/4395194b-107e-4315-b393-02a0bc99254c
 Content-Type: application/json
 
 {
