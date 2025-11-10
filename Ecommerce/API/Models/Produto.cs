@@ -1,6 +1,6 @@
 using System;
 
-namespace API.models;
+namespace API.Models;
 
 public class Produto
 {

@@ -1,10 +1,18 @@
 using System.Runtime.InteropServices;
-using API.models;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
+
+builder.Services.AddCors(
+    options => options.AddPolicy("Acesso Total",
+    configs => configs
+        .AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod())
+);
+
 var app = builder.Build();
 
 //Lista de produtos fake
@@ -113,5 +121,7 @@ app.MapPatch("/api/produto/editar/{id}",
     ctx.SaveChanges();
     return Results.Ok(produtoExistente);
 });
+
+app.UseCors("Acesso Total");
 
 app.Run();
