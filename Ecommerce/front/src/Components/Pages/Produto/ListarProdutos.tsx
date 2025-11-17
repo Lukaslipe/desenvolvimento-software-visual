@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Produto from "../../../Models/Produto";
+import axios from "axios";
+import { Link } from "react-router-dom";
 // Componente
 // 1 - Por hora deve ser uma função
 // 2 - Deve retornar apenas um elemento pai HTML
@@ -21,16 +23,29 @@ function ListarProdutos() {
 
     async function buscarProdutosAPI(){
         try{
-            const resposta = await fetch("http://localhost:5081/api/produto/listar");
+            const resposta = await axios.get<Produto[]>("http://localhost:5081/api/produto/listar");
 
-            if (!resposta.ok) {
-                throw new Error("Requisição com problema: " + resposta.statusText);
-            }
-            const dados = await resposta.json();
+            const dados = resposta.data;
             setProdutos(dados);
 
         } catch(error) {
             console.log("Requisição com problemas" + error);
+        }
+    }
+
+    function deletarProduto(id : string) {
+        deletarProdutoApi(id)
+    }
+
+    async function deletarProdutoApi(id:string) {
+        try {
+            const resposta = await axios.delete(
+                `http://localhost:5081/api/produto/remover/${id}`
+            );
+            buscarProdutosAPI()
+            console.log(resposta.data);
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -45,6 +60,8 @@ function ListarProdutos() {
                         <th>Preço</th>
                         <th>Quantidade</th>
                         <th>Criado em</th>
+                        <th>Deletar</th>
+                        <th>Editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +72,12 @@ function ListarProdutos() {
                             <td>{produto.preco}</td>
                             <td>{produto.quantidade}</td>
                             <td>{produto.criadoEm}</td>
+                            <td>
+                                <button onClick={() => deletarProduto(produto.id!)}>Deletar</button>
+                            </td>
+                            <td>
+                                <Link to={`/produto/alterar/${produto.id}`}>Alterar</Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

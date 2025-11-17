@@ -1,34 +1,31 @@
 import { useState } from "react";
 import Produto from "../../../Models/Produto";
+import axios from "axios";
 
 function CadastarProduto(){
     const [nome, setNome] = useState("");
+    const [quantidade, setQuantidade] = useState(0);
+    const [preco, setPreco] = useState(0);
 
     function submeterProdutoAPI(e : any){
         e.preventDefault()
         enviarProdutoAPI();
     }
 
-    function escreverTxtNome(nome : any){
-        console.log(nome.target.value);
-    }
-
     async function enviarProdutoAPI() {
-        const produto : Produto = {
-            nome : nome,
-            quantidade : 123,
-            preco : 39.90,
-        };
+        try {
+            const produto : Produto = {
+                nome,
+                quantidade,
+                preco
+            }
 
-        const resposta = await fetch("http://localhost:5081/api/produto/cadastrar", {
-            method : "POST",
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(produto)
-        })
+            const resposta = await axios.post("http://localhost:5081/api/produto/cadastrar", produto);
+            console.log(resposta);
 
-        console.log(resposta);
+        } catch(error){
+            console.log("Erro ao cadastrar o produto: " + error);
+        }
     }
     return(
         <div>
@@ -37,15 +34,15 @@ function CadastarProduto(){
             <form onSubmit={submeterProdutoAPI}>
                 <div>
                     <label htmlFor="">Nome</label>
-                    <input type="text" name="" id="" onChange={escreverTxtNome}/>
+                    <input type="text" name="" id="" onChange={(e: any) => setNome(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="">Quantidade</label>
-                    <input type="text" name="" id="" />
+                    <input type="text" name="" id="" onChange={(e: any) => setQuantidade(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="">Preço</label>
-                    <input type="text" name="" id="" />
+                    <input type="text" name="" id="" onChange={(e: any) => setPreco(e.target.value)}/>
                 </div>
                 <div>
                     <button type="submit">Cadastrar</button>
