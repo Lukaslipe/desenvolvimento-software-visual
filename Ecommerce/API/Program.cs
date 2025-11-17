@@ -51,12 +51,12 @@ app.MapGet("/api/produto/listar",
 });
 
 //GET: /api/produto/buscar/nome_do_produto
-app.MapGet("/api/produto/buscar/{nome}",
-    ([FromRoute]string nome,
+app.MapGet("/api/produto/buscar/{id}",
+    ([FromRoute]string id,
     [FromServices] AppDataContext ctx) =>
 {
     //expressão lambda
-    Produto? resultado = ctx.Produtos.FirstOrDefault(x => x.Nome == nome);
+    Produto? resultado = ctx.Produtos.FirstOrDefault(x => x.Id == id);
     if (resultado == null)
     {
         return Results.NotFound("Produto não encontrado!");
